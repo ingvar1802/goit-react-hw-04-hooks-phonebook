@@ -6,7 +6,7 @@ import ContactList from './components/ContactList';
 
 
  
-const initContacts = [
+const savedContacts = [
   { id: 'id-1', name: 'Elon Mask', number: '10664888778' },
   { id: 'id-2', name: 'Lena Kharchenko', number: '380664969795' },
   { id: 'id-3', name: 'Bill Gates', number: '10662475771' },
@@ -14,19 +14,19 @@ const initContacts = [
 ];
 
 function App() {
-  const [contacts, setContacts] = useState(initContacts);
+  const [contacts, setContacts] = useState(savedContacts);
   const [filter, setFilter] = useState('');
-  const firstRender = useRef(true);
+  const firstUse = useRef(true);
 
   useEffect(() => {
-    if (firstRender.current) {
+    if (firstUse.current) {
       const parsedContacts = JSON.parse(localStorage.getItem('contacts'));
 
       if (parsedContacts) {
         setContacts(parsedContacts);
       }
 
-      firstRender.current = false;
+      firstUse.current = false;
       return;
     }
     localStorage.setItem('contacts', JSON.stringify(contacts));
